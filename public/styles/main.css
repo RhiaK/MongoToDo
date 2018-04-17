@@ -1,0 +1,53 @@
+header {
+	text-align: center;
+	margin: 60px 0 60px 0;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	font-family: 'Noto Serif', serif;
+}
+
+body {
+	background-image: url("https://avatanplus.com/files/resources/mid/58ff61c03b15615ba595d6f2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#button {
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+#textbox {
+	width: 100%;
+}
+
+li {
+	text-align: center;
+	list-style-type: none;
+	font-size: 18px;
+	padding: 5px;
+	margin-left: 10%;
+	margin-right: 10%;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	font-family: 'Noto Serif', serif;
+}
+
+#remove {
+	text-align: center;
+	list-style-type: none;
+	font-size: 18px;
+	padding: 5px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin-bottom: 0;
+	font-family: 'Noto Serif', serif;
+}
+
+.nopadding {
+	padding: 0px;
+	margin: 0px;
+}
