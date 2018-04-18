@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-var Todo = require('./models');
+var Todo = require('./models/todo');
 var mongoose = require('mongoose');
 var app = express();
 
@@ -20,27 +20,54 @@ app.get("/", function(req,res){
 	res.render('index.ejs', { root : __dirname});
 });
 
-app.get('/api/todo', function (req,res){
-	console.log('hello')
+app.get('/api/todos', function (req,res){
+	console.log('hello');
 	db.Todo.find(function(err, mytodo){
 		res.render('index', {mytodo:mytodo});
 	});
-})
+});
 // create new todo
 app.post('/api/todos', function (req, res) {
-  // create new book with form data (`req.body`)
-  console.log('todos create', req.body);
-  var newTodo = req.body;
-  db.Todo.create(newTodo, function(err, mytodo){  
+  // create new todo with form data (`req.body`)
+  var newTodo = new todo({task: req.body});
+  db.Todo.save(function(err, mytodo){  
         if (err) {
           console.log("index error: " + err);
           res.sendStatus(500);  
         } 
-    res.render('index', {mytodo:mytodo});
+    res.json(mytodo);
   }); 
 });
 
+// update list
+app.put('/api/todos/:id', function(req,res) {
+// get book id from url params (`req.params`)
+  console.log('todos update', req.params);
+  var todoId = req.params.id;
+  // find the index of the book we want to remove
+  	db.Todo.update(todoId, function(err, todo) {
+        if (err) {
+          console.log("index error: " + err);
+          res.sendStatus(500);  
+        } 
+  		res.json(todo);
+	});
+});
 
+// delete todo item
+app.delete('/api/todos/:id', function (req, res) {
+  // get book id from url params (`req.params`)
+  console.log('todos delete', req.params);
+  var todoId = req.params.id;
+  	db.Todo.findOneAndRemove(todoId, function(err, todo) {
+        if (err) {
+          console.log("index error: " + err);
+          res.sendStatus(500);  
+        } 
+  		res.json(todoToDelete);
+  	});
+  }
+);
 
 // catch 404 and forward to error handler
 app.get('*', function(req, res) {
@@ -51,4 +78,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
 	console.log(`waiting for input on port ${PORT}`);
 });
+
 module.exports = app;

@@ -1,10 +1,9 @@
-console.log("Sanity check");
 var $todoList;
 var allTodos = [];
 
 $(document).ready(function() {
 
-	$todoList = $('#todoForm');
+	$todoList = $('#todoTarget');
 	$.ajax({
 		method: 'GET',
 		url: 'api/todos',
@@ -21,10 +20,6 @@ $(document).ready(function() {
 			success: newTodoSuccess,
 			error: NewTodoError,
 		});
-		var textEntry = $(".textbox").val();
-		$("#listItems").prepend($("<li>").html(textEntry + "</li>"));
-		$(".textbox").val('');
-	});
 
   	$todosList.on('dblclick', 'li', function() {
     	console.log('clicked delete to', '/api/todos/'+$(this).attr('data-id'));
@@ -37,48 +32,11 @@ $(document).ready(function() {
   	});
 });
 
-console.log("Sanity Check: JS is working!");
-var $booksList;
-var allBooks = [];
-
-$(document).ready(function(){
-
-  $booksList = $('#bookTarget');
-  $.ajax({
-    method: 'GET',
-    url: '/api/books',
-    success: handleSuccess,
-    error: handleError
-  });
-
-  $('#newBookForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      method: 'POST',
-      url: '/api/books',
-      data: $(this).serialize(),
-      success: newBookSuccess,
-      error: newBookError
-    });
-  });
-
-  $booksList.on('click', '.deleteBtn', function() {
-    console.log('clicked delete button to', '/api/books/'+$(this).attr('data-id'));
-    $.ajax({
-      method: 'DELETE',
-      url: '/api/books/'+$(this).attr('data-id'),
-      success: deleteBookSuccess,
-      error: deleteBookError
-    });
-  });
-
-});
 
 function getTodoHtml(todo) {
   return `<hr>
           <p>
             <b>${todo.task}</b>
-            <button type="button" name="button" class="deleteBtn btn btn-danger pull-right" data-id=${todo._id}>Delete</button>
           </p>`;
 }
 
@@ -122,7 +80,7 @@ function newTodoError() {
 function deleteTodoSuccess(json) {
   var todo = json;
   console.log(json);
-  var todoId = book._id;
+  var todoId = todo._id;
   console.log('delete todo', todoId);
   // find the book with the correct ID and remove it from our allBooks array
   for(var index = 0; index < allTodos.length; index++) {
