@@ -16,12 +16,12 @@
 		</div>
 	</header>
 
-	<form class="form"> 
+	<form id="newTodoForm" class="form"> 
 		<div class="form-group row justify-content-center">
 			<div class="col-10">
 				<div class="row justify-content-md-center">
 					<div class="col-sm-9">
-						<input class="form-control textbox" type="text" placeholder="Enter text here">
+						<input class="form-control textbox" name="task" type="text" placeholder="Enter text here">
 					</div>
 					<div class="col-sm-1"> 
 						<input type="Submit" class="btn btn-primary  button"></input>
@@ -32,10 +32,8 @@
 	</form>
 
 	<div class="form-check mx-sm-3 mb-3 nopadding">
-	  	<ul id="listItems">
-		  	<% for (i=0; i < mytodo.length; i++) { %>
-				<li><%= mytodo[i].task %></li>
-  			<% } %>
+	  	<ul class="listItems" id="todoTarget">
+
   		</ul>
 	</div>
 	<div class="container nopadding">
@@ -45,7 +43,7 @@
 			</div>
 		</div>
 	</div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/scripts/main.js"></script>

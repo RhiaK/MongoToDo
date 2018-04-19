@@ -4,9 +4,11 @@ var allTodos = [];
 $(document).ready(function() {
 
 	$todoList = $('#todoTarget');
+  console.log($todoList);
+
 	$.ajax({
 		method: 'GET',
-		url: 'api/todos',
+		url: '/api/todos',
 		success: handleSuccess,
 		error: handleError
 	});
@@ -18,10 +20,10 @@ $(document).ready(function() {
 			url: '/api/todos',
 			data: $(this).serialize(),
 			success: newTodoSuccess,
-			error: NewTodoError,
+			error: newTodoError,
 		});
 
-  	$todosList.on('dblclick', 'li', function() {
+  	$todoList.on('click', 'b', function() {
     	console.log('clicked delete to', '/api/todos/'+$(this).attr('data-id'));
     	$.ajax({
      	 method: 'DELETE',
@@ -40,7 +42,9 @@ function getTodoHtml(todo) {
           </p>`;
 }
 
+
 function getAllTodosHtml(todos) {
+  console.log(todos);
   return todos.map(getTodoHtml).join("");
 }
 
@@ -48,13 +52,13 @@ function getAllTodosHtml(todos) {
 // note: we empty and re-render the collection each time our post data changes
 function render () {
   // empty existing posts from view
-  $todosList.empty();
+  $todoList.empty();
 
   // pass `allTodos` into the template function
   var todosHtml = getAllTodosHtml(allTodos);
 
   // append html to the view
-  $todosList.append(todosHtml);
+  $todoList.append(todosHtml);
 }
 
 function handleSuccess(json) {
@@ -67,7 +71,7 @@ function handleError(e) {
   $('#todoTarget').text('Failed to load todos, is the server working?');
 }
 
-function newTodokSuccess(json) {
+function newTodoSuccess(json) {
   $('#newTodoForm input').val('');
   allTodos.push(json);
   render();
@@ -95,5 +99,11 @@ function deleteTodoSuccess(json) {
 function deleteTodoError() {
   console.log('deletetodo error!');
 }
+
+});
+
+
+
+
 
 
