@@ -72,9 +72,15 @@ app.get('*', function(req, res) {
   res.status(404).send({message: 'You messed up!'});
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, function() {
-	console.log(`waiting for input on port ${PORT}`);
-});
+app.set('port', process.env.PORT || 3001)
+
+  app.listen(app.get('port'), () => {
+    console.log(`✅ PORT: ${app.get('port')} 🌟`)
+  })
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, function() {
+// 	console.log(`waiting for input on port ${PORT}`);
+// });
 
 module.exports = app;
